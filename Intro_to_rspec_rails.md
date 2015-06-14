@@ -40,6 +40,13 @@
 ##1. [recap on testing](https://github.com/ga-students/WDI_LA_16/tree/master/07-week/intro_to_tdd)
 
 ##2. unit specs (model, view, controller) VERSUS integration / acceptance tests (feature, background, scenario : tests that match our user stories)
+
+[source](http://weblog.jamisbuck.org/2007/1/30/unit-vs-functional-vs-integration.html)
+
+Unit tests are for testing models and pseudo-models. Basically, they are the simplest of your tests, exercising very specific functionality. 
+
+Integration tests, on the other hand, test the entire Rails stack. Each request in an integration test mimics a real web request and exercises routing recognition, actually parses incoming requests, uses real sessions, and so forth. As a result, integration tests are significantly slower than functional tests, but they are excellent at testing cross-controller stories. Want to make sure the flash you set in the “create” action is being properly displayed in the “index” action? Sounds like you need an integration test. **You can even use integration tests to exercise entire stories:** “user logs in, views the catalog, views a product, adds it to their cart, checks out, enters credit card, submits payment, sees invoice.”
+
 ##3. setting up RSPEC in RAILS
 (assuming you do a rails new with -T)
 
@@ -114,7 +121,7 @@
 
 ###AN IMPORTANT NOTE! 
 
-With **unit specs**, we are going to be testing **basic** properties of our models, views and controllers. If this code is sticking to Rails convention (such as the code that we can scaffold), then we can also use conventional tests. Notice that if you install Rspec **before** running a `rails g scaffold` the generator will run even more code this time as it will scaffold default tests that apply to the standard CRUD code that we have generated. This is an interesting exercise but we need to learn to do this manually. 
+With **unit specs**, we are going to be testing **basic** (unit) properties of our models, views and controllers. If this code is sticking to Rails convention (such as the code that we can scaffold), then we can also use conventional tests. Notice that if you install Rspec **before** running a `rails g scaffold` the generator will run even more code this time as it will scaffold default tests that apply to the standard CRUD code that we have generated. This is an interesting exercise but we need to learn to do this manually. 
 
 At first, unit specs might seem a little trivial, and hard to understand, but the real goal is to learn enough about unit specs so that we can get on to learning about Integration tests. This will happen tomorrow and everything will make a lot more sense.
 
