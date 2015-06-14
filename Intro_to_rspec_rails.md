@@ -45,7 +45,7 @@
 
 Unit tests are for testing models and pseudo-models. Basically, they are the simplest of your tests, exercising very specific functionality. 
 
-Integration tests, on the other hand, test the entire Rails stack. Each request in an integration test mimics a real web request and exercises routing recognition, actually parses incoming requests, uses real sessions, and so forth. As a result, integration tests are significantly slower than functional tests, but they are excellent at testing cross-controller stories. Want to make sure the flash you set in the “create” action is being properly displayed in the “index” action? Sounds like you need an integration test. **You can even use integration tests to exercise entire stories:** “user logs in, views the catalog, views a product, adds it to their cart, checks out, enters credit card, submits payment, sees invoice.”
+Integration tests, on the other hand, test the entire Rails stack. Each request in an integration test mimics a real web request and exercises routing recognition, actually parses incoming requests, uses real sessions, and so forth. As a result, integration tests are significantly slower than spec tests, but they are excellent at testing cross-controller stories. Want to make sure the flash you set in the “create” action is being properly displayed in the “index” action? Sounds like you need an integration test. **You can even use integration tests to exercise entire stories:** “user logs in, views the catalog, views a product, adds it to their cart, checks out, enters credit card, submits payment, sees invoice.”
 
 ##3. setting up RSPEC in RAILS
 (assuming you do a rails new with -T)
