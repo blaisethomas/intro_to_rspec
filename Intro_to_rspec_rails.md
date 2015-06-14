@@ -12,12 +12,12 @@
 ### ROADMAP
 1. Intro (Blaise)
 	* recap on testing 
-	* expect matchers
 	* unit specs (controller, model) VERSUS integration / acceptance tests (feature, background, scenario : tests that match our user stories)
 	* setting up RSPEC in RAILS
 	* "rspec.describe", "it", writing pending examples, and forming our first suite
 	* testing convention with convention : scaffold tests
 	* running RSPEC in the Terminal (rspec + filepath)
+	* expect matchers
 	* some model specs if we have time
 2. Model Specs (John) 
 	* testing convention with convention (scaffold)
@@ -111,6 +111,16 @@
 
 
 ##5. testing convention with convention : scaffold tests
+
+###AN IMPORTANT NOTE! 
+
+With **unit specs**, we are going to be testing **basic** properties of our models, views and controllers. If this code is sticking to Rails convention (such as the code that we can scaffold), then we can also use conventional tests. Notice that if you install Rspec **before** running a `rails g scaffold` the generator will run even more code this time as it will scaffold default tests that apply to the standard CRUD code that we have generated. This is an interesting exercise but we need to learn to do this manually. 
+
+At first, unit specs might seem a little trivial, and hard to understand, but the real goal is to learn enough about unit specs so that we can get on to learning about Integration tests. This will happen tomorrow and everything will make a lot more sense.
+
+
+
+
 ##6. running RSPEC in the Terminal (rspec + filepath)
 
 Now let's run our test and see what happens. There are a few ways we can run our test:
@@ -134,7 +144,7 @@ Now let's run our test and see what happens. There are a few ways we can run our
   or
 
   ```
-  $rspec spec/models/user_spec.rb
+  $ rspec spec/models/user_spec.rb
   ```
 
 
@@ -146,6 +156,7 @@ with `expect(..).to` or `expect(..).not_to` to define positive and negative **ex
 Most matchers can also be accessed using the `(...).should` and
 `(...).should_not` syntax; By default, **both** expect and should syntaxes are available. In the future, the default may be changed to **only enable the expect syntax**. [AVOID USING THE "SHOULD" SYNTAX](https://github.com/rspec/rspec-expectations/blob/master/Should.md)
 
+Here is an example of some expect matchers. These will live within our examples (declared using "it")
 
 ```
 #following this pattern
