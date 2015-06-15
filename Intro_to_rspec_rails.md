@@ -39,13 +39,86 @@
 
 ##1. [recap on testing](https://github.com/ga-students/WDI_LA_16/tree/master/07-week/intro_to_tdd)
 
+-> **test** and **spec** are often used interchangeably. 
+
+-> What do we know about testing so far?
+
+->In class review lab. 10 minutes max.
+
+
 ##2. unit specs (model, view, controller) VERSUS integration / acceptance tests (feature, background, scenario : tests that match our user stories)
 
-[source](http://weblog.jamisbuck.org/2007/1/30/unit-vs-functional-vs-integration.html)
+>Ok, so now lets do the same thing in our Rails app.
 
-Unit tests are for testing models and pseudo-models. Basically, they are the simplest of your tests, exercising very specific functionality. 
 
-Integration tests, on the other hand, test the entire Rails stack. Each request in an integration test mimics a real web request and exercises routing recognition, actually parses incoming requests, uses real sessions, and so forth. As a result, integration tests are significantly slower than spec tests, but they are excellent at testing cross-controller stories. Want to make sure the flash you set in the “create” action is being properly displayed in the “index” action? Sounds like you need an integration test. **You can even use integration tests to exercise entire stories:** “user logs in, views the catalog, views a product, adds it to their cart, checks out, enters credit card, submits payment, sees invoice.”
+
+Unit tests are for testing models, views and controllers . Basically, they are the simplest of your tests, exercising very specific functionality. Each example should test one specific thing. 
+
+Integration tests, on the other hand, test the entire Rails stack. Each request in an integration test mimics a real web request and exercises routing recognition, actually parses incoming requests, uses real sessions, and so forth. As a result, integration tests are significantly slower than spec tests, but they are excellent at testing cross-controller stories. Want to make sure the flash you set in the “create” action is being properly displayed in the “index” action? Sounds like you need an integration test. **You can even use integration tests to exercise entire stories:** “user logs in, views the catalog, views a product, adds it to their cart, checks out, enters credit card, submits payment, sees invoice.” ~ [source](http://weblog.jamisbuck.org/2007/1/30/unit-vs-functional-vs-integration.html)
+
+###Below is an example of some simple **unit** specs for models and controllers. 
+
+```ruby
+#demo model valditaion spec
+  it "is invalid without a last name" do
+    user = User.new(first_name: "Roger", last_name: nil, email: "roger@example.com")
+    expect(user).to be_invalid 
+  end
+  
+  it "returns a user's full name as a string" do
+    user = User.new(first_name: "Roger", last_name: "Smith", email: "roger@example.com")
+    expect(user.full_name).to eq "Roger Smith"
+  end
+  
+##demo controller spec
+  it "renders the index template" do
+    expect(response).to render_template("index") 
+  end
+  it "response should be a success" do
+    # expect(response).to be_success
+    expect(response).to have_http_status(200)
+  end
+  it "assigns @items to include items" do
+    expect(assigns(:items)).to include(@item1, @item2)
+  end
+  
+```
+
+###Below is an example of acceptance tests for User login. 
+
+
+> If you are having trouble getting your Rails app to "do stuff" for you, **properly**, then try writing some tests like this...
+
+
+```
+feature "Signing in" do
+  background do
+    User.make(:email => 'user@example.com', :password => 'caplin')
+  end
+
+  scenario "Signing in with correct credentials" do
+    visit '/sessions/new'
+    within("#session") do
+      fill_in 'Email', :with => 'user@example.com'
+      fill_in 'Password', :with => 'caplin'
+    end
+    click_button 'Sign in'
+    expect(page).to have_content 'Success'
+  end
+
+  given(:other_user) { User.make(:email => 'other@example.com', :password => 'rous') }
+
+  scenario "Signing in as another user" do
+    visit '/sessions/new'
+    within("#session") do
+      fill_in 'Email', :with => other_user.email
+      fill_in 'Password', :with => other_user.password
+    end
+    click_button 'Sign in'
+    expect(page).to have_content 'Invalid email or password'
+  end
+end
+```
 
 ##3. setting up RSPEC in RAILS
 (assuming you do a rails new with -T)
